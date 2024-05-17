@@ -1,11 +1,26 @@
 import pandas as pd
 
-#load csv to dataframe
 df = pd.read_csv("country_vaccination_stats.csv")
 
-df['daily_vaccinations'] = df['daily_vaccinations'].fillna(0)
+def fill_missing_vaccinations(data):
+    min_vaccinations = data.groupby('country')['daily_vaccinations'].min()
 
-print(df)#print dataframe
+    #fill the empy values as min values
+    def fill_value(row):
+        if pd.isna(row['daily_vaccinations']):
+            if pd.notna(min_vaccinations[row['country']]):
+                return min_vaccinations[row['country']]
+            else:#if there is no vaccination value make the values 0
+                return 0
+        else:
+            return row['daily_vaccinations']
+    
+    # Doldurma mantığını DataFrame'e uygulayın
+    data['daily_vaccinations'] = data.apply(fill_value, axis=1)
+    return data
 
-df.to_csv('country_vaccination_stats_filled.csv', index=False)
-#save as a new file
+# Eksik verileri doldurun
+df_filled = fill_missing_vaccinations(df)
+
+# Sonucu görüntüleyin
+print(df_filled)
