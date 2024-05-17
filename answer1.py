@@ -17,12 +17,12 @@ def fill_missing_vaccinations(data):
         else:
             return row['daily_vaccinations']
     
-    # Doldurma mantığını DataFrame'e uygulayın
+    
     data['daily_vaccinations'] = data.apply(fill_value, axis=1)
     return data
 
-# Eksik verileri doldurun
+
 df_filled = fill_missing_vaccinations(df)
 
-# Sonucu görüntüleyin
+
 print(df_filled)
