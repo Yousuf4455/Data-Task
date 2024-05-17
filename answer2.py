@@ -28,5 +28,5 @@ def median_vac(data):
     top_3_countries = median_vaccinations.sort_values(by='daily_vaccinations', ascending=False).head(3)
     return top_3_countries
 
-# Sonucu görüntüleyin
+
 print(median_vac(df_filled))
