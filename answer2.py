@@ -1,3 +1,4 @@
+#answer of question 6
 import pandas as pd
 
 df = pd.read_csv("country_vaccination_stats.csv")
